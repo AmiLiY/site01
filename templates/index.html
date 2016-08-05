@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Spruce Site Index Page.{% endblock %}
+
+{% block content %}
+	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<h2 class="page-header">Overview</h2>
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<tr>
+					<th>Num</th>
+					<th>Host Name</th>
+					<th>IP Address</th>
+					<th>Host Type</th>
+					<th>OS Type</th>
+					<th>Services</th>
+					<th>Notes</th>
+				</tr>
+				{% for host in host_list %}
+					<tr>
+						<td>{{ forloop.counter }}</td>
+						<td>{{ host.hostname }}</td>
+						<td>{{ host.ip }}</td>
+						<td>{{ host.type }}</td>
+						<td>{{ host.os }}</td>
+						<td>
+							{% for service in host.services.all %}
+								{% if forloop.last %}
+									{{ service }}
+								{% else %}
+									{{ service }},
+								{% endif %}
+							{% endfor %}
+						</td>
+						<td>{{ host.note }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+	</div>
+{% endblock %}
